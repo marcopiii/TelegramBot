@@ -1,5 +1,7 @@
 import commons.Callback;
 import commons.Command;
+import commons.State;
+import org.lettuce.stateTracker.StateTracker;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageReplyMarkup;
@@ -16,6 +18,8 @@ public class YourBot extends TelegramLongPollingBot {
     /* bot authentication configuration */
     private static ResourceBundle authBundle = ResourceBundle.getBundle("auth/telegram-config");
 
+    private static StateTracker stateTracker = new StateTracker(State.STATES);
+
     public String getBotUsername() {
         return authBundle.getString("bot-username");
     }
@@ -31,7 +35,7 @@ public class YourBot extends TelegramLongPollingBot {
             String incomingText = update.getMessage().getText();
             User sender = update.getMessage().getFrom();
 
-            /** manage commands **/
+            /* manage commands */
             //TODO: add your commands
 
             if (incomingText.startsWith(Command.START)) {
@@ -48,10 +52,20 @@ public class YourBot extends TelegramLongPollingBot {
 
             } else {
 
-                /** manage plain text **/
+                /* manage plain text */
                 //TODO: add your cases
 
-                onInsertData(update);
+                if (State.FIRST_STATE.equals(stateTracker.getStateOf(sender.getId()))) {
+
+                    onInsertData(update);
+
+                } else if (State.SECOND_STATE.equals(stateTracker.getStateOf(sender.getId()))) {
+
+                    onInsertOtherData(update);
+
+                }
+
+                /* do nothing... or do something else */
 
             }
 
@@ -60,7 +74,7 @@ public class YourBot extends TelegramLongPollingBot {
             String callbackData = update.getCallbackQuery().getData();
             User sender = update.getCallbackQuery().getFrom();
 
-            /** manage callbacks **/
+            /* manage callbacks */
             //TODO: add your callbacks
 
             if (callbackData.startsWith(Callback.FOO)) {
@@ -183,6 +197,29 @@ public class YourBot extends TelegramLongPollingBot {
     /** data insert response **/
 
     private void onInsertData(Update update) {
+
+        Message originalMessage = update.getCallbackQuery().getMessage();
+        User sender = update.getCallbackQuery().getFrom();
+
+        /* this is the bot response*/
+        SendMessage replyMessage = new SendMessage()
+                .setChatId(originalMessage.getChatId());
+
+        try {
+
+            //TODO: do stuff
+
+            execute(replyMessage);
+
+        } catch (TelegramApiException e) {
+
+            e.printStackTrace();
+
+        }
+
+    }
+
+    private void onInsertOtherData(Update update) {
 
         Message originalMessage = update.getCallbackQuery().getMessage();
         User sender = update.getCallbackQuery().getFrom();
