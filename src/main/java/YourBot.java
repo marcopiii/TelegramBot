@@ -9,6 +9,7 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import services.persistence.PersistenceService;
 
 import java.util.ResourceBundle;
 
@@ -18,7 +19,13 @@ public class YourBot extends TelegramLongPollingBot {
     /* bot authentication configuration */
     private static ResourceBundle authBundle = ResourceBundle.getBundle("auth/telegram-config");
 
+    /* a simple manager to track the user state in a conversation, if you bot needs one */
     private static StateTracker stateTracker = new StateTracker(State.STATES);
+
+    /* TODO: use the service you actually implemented */
+    private static PersistenceService persistenceService;
+
+    /* ---------------------------------------------------- */
 
     public String getBotUsername() {
         return authBundle.getString("bot-username");
@@ -86,6 +93,8 @@ public class YourBot extends TelegramLongPollingBot {
         }
 
     }
+
+    /* ---------------------------------------------------- */
 
     /** commmand handlers **/
 
