@@ -1,7 +1,6 @@
 import commons.Callback;
 import commons.Command;
 import commons.State;
-import org.lettuce.stateTracker.StateTracker;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageReplyMarkup;
@@ -10,6 +9,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import services.persistence.PersistenceService;
+import utils.StateTracker;
 
 import java.util.ResourceBundle;
 
