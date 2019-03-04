@@ -8,7 +8,7 @@ public class State {
     public static final String FIRST_STATE = "FIRST_STATE";
     public static final String SECOND_STATE = "SECOND_STATE";
 
-    public static List<String> STATES = new ArrayList<String>();
+    private static List<String> STATES = new ArrayList<>();
 
     static {
         STATES.add(FIRST_STATE);
@@ -16,5 +16,9 @@ public class State {
     }
 
     /* TODO: add your states here */
+
+    public static List<String> getList() {
+        return STATES;
+    }
 
 }

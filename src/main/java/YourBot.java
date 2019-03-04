@@ -9,6 +9,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import services.persistence.PersistenceService;
+import utils.L10nHelper;
 import utils.StateTracker;
 
 import java.util.ResourceBundle;
@@ -16,12 +17,18 @@ import java.util.ResourceBundle;
 //TODO: edit the bot name
 public class YourBot extends TelegramLongPollingBot {
 
-    /* bot authentication configuration */
-    private static ResourceBundle authBundle = ResourceBundle.getBundle("auth/telegram-config");
+    /* resource bundles to retrieve configurations and authentications for
+     * Telegram API and any external service you may use
+     */
+    private static ResourceBundle authBundle = ResourceBundle.getBundle("auth/bot-config");
+
+    /* a helper to manage users with different language settings, if your bot needs one */
+    private static L10nHelper langBundle = new L10nHelper("lang/strings");
 
     /* a simple manager to track the user state in a conversation, if you bot needs one */
-    private static StateTracker stateTracker = new StateTracker(State.STATES);
+    private static StateTracker stateTracker = new StateTracker(State.getList());
 
+    /* services your bot may use */
     /* TODO: use the service you actually implemented */
     private static PersistenceService persistenceService;
 
@@ -35,6 +42,10 @@ public class YourBot extends TelegramLongPollingBot {
         return authBundle.getString("bot-token");
     }
 
+    /* basically this is the only method your bot will call.
+     * The design proposed below turns it into a simple switcher, just recognizing
+     * the meaning of the update and delegating its handling to specific methods
+     */
     public void onUpdateReceived(Update update) {
 
         if (update.hasMessage() && update.getMessage().hasText()) {
