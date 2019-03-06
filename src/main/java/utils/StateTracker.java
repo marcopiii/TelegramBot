@@ -10,9 +10,6 @@ import java.util.concurrent.ConcurrentLinkedDeque;
  * by their ids while states are identified by strings.
  * A list with possible states has to be provided on construction, then users can
  * be easily added, moved or removed.
- *
- * @author aSlug
- * @version 1.0
  */
 public class StateTracker {
 
