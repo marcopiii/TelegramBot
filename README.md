@@ -36,6 +36,7 @@ This executable class is what will actually deploy your bot and make it fetch fo
 ### YourBot
 In this project your bot will be a `TelegramLongPollingBot`. As said above it will "just" fetch for updates, and trigger `onUpdateReceived(Update)` on response. All you have to do is to actually implement any logic you want inside this function.
 To keep it easily readable, maintainable and scalable the design proposed by this template turns this function in a simple switcher to detect commands, callbacks, plain text and delegate the handling to case-specific functions.
+*(work in progress)*
 
 ### Utils
 
