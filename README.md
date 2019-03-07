@@ -47,11 +47,11 @@ To keep it easily readable, maintainable and scalable the design proposed by thi
 
 #### StateTracker
 You may want your bot to be able to have a conversation with the user, something like
-> **User:** /addNote
-> **Bot:** Send me the title
-> **User:** How to use StateTracker
-> **Bot:** Now send me the text
-> **User:** You may want your bot to be able...
+> **User:** /addNote  
+> **Bot:** Send me the title  
+> **User:** How to use StateTracker  
+> **Bot:** Now send me the text  
+> **User:** You may want your bot to be able...  
 
 but since every message is received by your bot as an independent update, how can it recognize if the next plain text message has to be interpreted as a note title or a note body? An easy solution to bind those independent updates is to *move* the user through a series of states.
 After receiving the `/addNote` command the bot can associate the sender to the state `GETTING_TITLE` and the next plain text message received from that user will be interpreted as the title. Then he can be moved to the next step, for example `GETTING_TEXT`, and so on.
