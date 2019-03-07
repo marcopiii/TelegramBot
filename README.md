@@ -3,7 +3,7 @@
 *A project template to create a clean, scalable and easy Telegram Bot with Java.*
 
 ##### Introduction
-During my experiments with Telegram bots I often had to write the same project structure again and again. Therefore I found quite useful to create a custom general template for my bots.
+During my experiments with Telegram bots I often had to write the same project structure again and again. Therefore I found quite useful to create a custom general template.
 Clearly this is just one of the way you can organize your project and of course it reflects my personal style of coding, however I think this may be helpful as an example for who is going to start playing with bots.
 Anyway before using this template I suggest to read [this really good guide](https://monsterdeveloper.gitbooks.io/writing-telegram-bots-on-java/content) to quickly learn the very basic concept about writing a Telegram bot in java and always refer to the official [TelegramBot APIs](https://core.telegram.org/bots/api) official documentation.
 
