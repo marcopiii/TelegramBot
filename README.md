@@ -1,16 +1,21 @@
 # TelegramBot
 
-A template to create a clean, scalable and easy Telegram Bot with Java.
+*A project template to create a clean, scalable and easy Telegram Bot with Java.*
 
-## Getting Started
+##### Introduction
+During my experiments with Telegram bots I often had to write the same project structure again and again. Therefore I found quite useful to create a custom general template for my bots.
+Clearly this is just one of the way you can organize your project and of course it reflects my personal style of coding, however I think this may be helpful as an example for who is going to start playing with bots.
+Anyway before using this template I suggest to read [this really good guide](https://monsterdeveloper.gitbooks.io/writing-telegram-bots-on-java/content) to quickly learn the very basic concept about writing a Telegram bot in java and always refer to the official [TelegramBot APIs](https://core.telegram.org/bots/api) official documentation.
 
-* **IntelliJ IDEA**: download the project, open it, *Tools* > *Save project as template*, done.
+### How to use this template?
+
+* **IntelliJ IDEA**: download the project, open it, *Tools* > *Save project as template*. When you create a new project you will find this template in the *user defined* template menu.
 
 ### Dependencies
 
 Some dependencies are already defined in the `pom.xml`
 
-The main and essential dependency of this project is the excellent rubenlagus' [TelegramBots library](https://github.com/rubenlagus/TelegramBots) that easely permits to communicate with [Telegram Bot API](https://core.telegram.org/bots/api).
+The main and essential dependency of this project is the excellent rubenlagus' [TelegramBots library](https://github.com/rubenlagus/TelegramBots) that easily permits to communicate with [Telegram Bot API](https://core.telegram.org/bots/api).
 ```
 <dependency>
     <groupId>org.telegram</groupId>
@@ -40,7 +45,7 @@ To keep it easily readable, maintainable and scalable the design proposed by thi
 
 ### Utils
 
-##### StateTracker
+#### StateTracker
 You may want your bot to be able to have a conversation with the user, something like
 > **User:** /addNote
 > **Bot:** Send me the title
@@ -51,13 +56,21 @@ You may want your bot to be able to have a conversation with the user, something
 but since every message is received by your bot as an independent update, how can it recognize if the next plain text message has to be interpreted as a note title or a note body? An easy solution to bind those independent updates is to *move* the user through a series of states.
 After receiving the `/addNote` command the bot can associate the sender to the state `GETTING_TITLE` and the next plain text message received from that user will be interpreted as the title. Then he can be moved to the next step, for example `GETTING_TEXT`, and so on.
 
-##### L10nHelper
+#### L10nHelper
 If you want your bot to speak multiple languages you will need to define multiple `.properties` files and instantiate a different ResourceBundle for each one. This utility is nothing more than a little shortcut to handle all those objects with a single structure in a less verbose way.
 
 ### Services
 
-##### PersistenceService
+#### PersistenceService
 You may want your bot to persist data, for example a list of users or user settings like the selected language. The options to achieve it are countless. Separating interface and implementation is always a good practice.
+
+### Commons
+Centralization in (almost) always a good choice. In this package you can keep all the constants used in your project.
+* **Command**: The commands your bot should handle.
+* **Callback**: If your bot exposes inline keyboards you can put here the callbacks' metadata keys that your bot should handle.
+* **Lang**: If your bot supports multiple languages you should store here the language IDs.
+* **State**: If your bot uses StateTracker here you can put states identifiers.
+* **DBKeys**: If your bot needs to store data in a database you can store here the database keys.
 
 ## Built With
 
