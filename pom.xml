@@ -6,7 +6,7 @@
 
     <groupId>org.lettuce</groupId>
     <artifactId>telegrambot-template</artifactId>
-    <version>1.4</version>
+    <version>1.5.0</version>
 
     <build>
         <plugins>
