@@ -4,7 +4,7 @@ import org.telegram.telegrambots.meta.api.objects.User;
 
 /**
  * Define all the persistence operations your application needs to perform,
- * then implement them using the API of the database service you choosed.
+ * then implement them using the API of the database service you chose.
  **/
 public interface PersistenceService {
 

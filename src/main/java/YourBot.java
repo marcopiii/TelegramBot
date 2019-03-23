@@ -10,16 +10,17 @@ import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import services.persistence.PersistenceService;
 import utils.L10nHelper;
+import utils.Logger;
 import utils.StateTracker;
 
+import java.text.MessageFormat;
 import java.util.ResourceBundle;
 
 //TODO: edit the bot name
 public class YourBot extends TelegramLongPollingBot {
 
     /* resource bundles to retrieve configurations and authentications for
-     * Telegram API and any external service you may use
-     */
+     * Telegram API and any external service you may use */
     private static ResourceBundle authBundle = ResourceBundle.getBundle("auth/bot-config");
 
     /* a helper to manage users with different language settings, if your bot needs one */
@@ -27,6 +28,9 @@ public class YourBot extends TelegramLongPollingBot {
 
     /* a simple manager to track the user state in a conversation, if you bot needs one */
     private static StateTracker stateTracker = new StateTracker(State.getList());
+
+    /* a helper to log events */
+    private static Logger LOGGER = new Logger("log/log-messages");
 
     /* services your bot may use */
     /* TODO: use the service you actually implemented */
@@ -81,9 +85,12 @@ public class YourBot extends TelegramLongPollingBot {
 
                     onInsertOtherData(update);
 
-                }
+                } else {
 
-                /* do nothing... or do something else */
+                    /* do nothing... or do something else */
+                    LOGGER.log("incoming_update", sender.getId().toString(), "message", "none");
+
+                }
 
             }
 
@@ -114,7 +121,9 @@ public class YourBot extends TelegramLongPollingBot {
         Message incomingMessage = update.getMessage();
         User sender = incomingMessage.getFrom();
 
-        /* this is the bot response*/
+        LOGGER.log("incoming_update", sender.getId().toString(), "message", "onCommandStart");
+
+        /* this is the bot response */
         SendMessage replyMessage = new SendMessage()
                 .setChatId(incomingMessage.getChatId());
 
@@ -137,7 +146,9 @@ public class YourBot extends TelegramLongPollingBot {
         Message incomingMessage = update.getMessage();
         User sender = incomingMessage.getFrom();
 
-        /* this is the bot response*/
+        LOGGER.log("incoming_update", sender.getId().toString(), "message", "onCommandHelp");
+
+        /* this is the bot response */
         SendMessage replyMessage = new SendMessage()
                 .setChatId(incomingMessage.getChatId());
 
@@ -160,7 +171,9 @@ public class YourBot extends TelegramLongPollingBot {
         Message incomingMessage = update.getMessage();
         User sender = incomingMessage.getFrom();
 
-        /* this is the bot response*/
+        LOGGER.log("incoming_update", sender.getId().toString(), "message", "onCommandSettings");
+
+        /* this is the bot response */
         SendMessage replyMessage = new SendMessage()
                 .setChatId(incomingMessage.getChatId());
 
@@ -188,12 +201,14 @@ public class YourBot extends TelegramLongPollingBot {
         String callbackData = update.getCallbackQuery().getData();
         User sender = update.getCallbackQuery().getFrom();
 
+        LOGGER.log("incoming_update", sender.getId().toString(), "callback", "onCallbackFoo");
+
         /* this will edit the message from which the callback came from */
         EditMessageReplyMarkup editMessageReplyMarkup = new EditMessageReplyMarkup()
                 .setChatId(String.valueOf(sender.getId()))
                 .setMessageId(originalMessage.getMessageId());
 
-        /* this is the bot response*/
+        /* this is the bot response */
         SendMessage replyMessage = new SendMessage()
                 .setChatId(originalMessage.getChatId());
 
@@ -221,7 +236,9 @@ public class YourBot extends TelegramLongPollingBot {
         Message originalMessage = update.getCallbackQuery().getMessage();
         User sender = update.getCallbackQuery().getFrom();
 
-        /* this is the bot response*/
+        LOGGER.log("incoming_update", sender.getId().toString(), "message", "onInsertData");
+
+        /* this is the bot response */
         SendMessage replyMessage = new SendMessage()
                 .setChatId(originalMessage.getChatId());
 
@@ -244,7 +261,9 @@ public class YourBot extends TelegramLongPollingBot {
         Message originalMessage = update.getCallbackQuery().getMessage();
         User sender = update.getCallbackQuery().getFrom();
 
-        /* this is the bot response*/
+        LOGGER.log("incoming_update", sender.getId().toString(), "message", "onInsertOtherData");
+
+        /* this is the bot response */
         SendMessage replyMessage = new SendMessage()
                 .setChatId(originalMessage.getChatId());
 

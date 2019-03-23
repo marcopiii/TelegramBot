@@ -41,23 +41,25 @@ This executable class is what will actually deploy your bot and make it fetch fo
 ### YourBot
 In this project your bot will be a `TelegramLongPollingBot`. As said above it will "just" fetch for updates, and trigger `onUpdateReceived(Update)` on response. All you have to do is to actually implement any logic you want inside this function.
 To keep it easily readable, maintainable and scalable the design proposed by this template turns this function in a simple switcher to detect commands, callbacks, plain text and delegate the handling to case-specific functions.
-*(work in progress)*
 
 ### Utils
 
 #### StateTracker
 You may want your bot to be able to have a conversation with the user, something like
-> **User:** /addNote  
-> **Bot:** Send me the title  
-> **User:** How to use StateTracker  
-> **Bot:** Now send me the text  
-> **User:** You may want your bot to be able...  
+> **User:** /addNote
+> **Bot:** Send me the title
+> **User:** How to use StateTracker
+> **Bot:** Now send me the text
+> **User:** You may want your bot to be able...
 
 but since every message is received by your bot as an independent update, how can it recognize if the next plain text message has to be interpreted as a note title or a note body? An easy solution to bind those independent updates is to *move* the user through a series of states.
 After receiving the `/addNote` command the bot can associate the sender to the state `GETTING_TITLE` and the next plain text message received from that user will be interpreted as the title. Then he can be moved to the next step, for example `GETTING_TEXT`, and so on.
 
 #### L10nHelper
 If you want your bot to speak multiple languages you will need to define multiple `.properties` files and instantiate a different ResourceBundle for each one. This utility is nothing more than a little shortcut to handle all those objects with a single structure in a less verbose way.
+
+#### Logger
+If you want to keep full track of all the activity of your bot once deployed you can use one of the many existing logging frameworks (and I suggest you to), but if you just want to run your bot on your local to test it or debug and you just need real time logging of major events the standard output will be enough. With this utility you will be able to do it with a short and clean syntax.
 
 ### Services
 
