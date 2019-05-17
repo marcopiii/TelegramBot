@@ -1,3 +1,5 @@
+package bot;
+
 import commons.Callback;
 import commons.Command;
 import commons.State;
@@ -13,7 +15,6 @@ import utils.L10nHelper;
 import utils.Logger;
 import utils.StateTracker;
 
-import java.text.MessageFormat;
 import java.util.ResourceBundle;
 
 //TODO: edit the bot name
@@ -33,7 +34,7 @@ public class YourBot extends TelegramLongPollingBot {
     private static Logger LOGGER = new Logger("log/log-messages");
 
     /* services your bot may use */
-    /* TODO: use the service you actually implemented */
+    /* TODO: instantiate the service you actually implemented */
     private static PersistenceService persistenceService;
 
     /* ---------------------------------------------------- */
@@ -58,7 +59,6 @@ public class YourBot extends TelegramLongPollingBot {
             User sender = update.getMessage().getFrom();
 
             /* manage commands */
-            //TODO: add your commands
 
             if (incomingText.startsWith(Command.START)) {
 
@@ -68,14 +68,9 @@ public class YourBot extends TelegramLongPollingBot {
 
                 onCommandHelp(update);
 
-            } else if (incomingText.startsWith(Command.SETTINGS)) {
-
-                onCommandSettings(update);
-
             } else {
 
-                /* manage plain text */
-                //TODO: add your cases
+                /* manage plain text with no commands */
 
                 if (State.FIRST_STATE.equals(stateTracker.getStateOf(sender.getId()))) {
 
@@ -100,8 +95,6 @@ public class YourBot extends TelegramLongPollingBot {
             User sender = update.getCallbackQuery().getFrom();
 
             /* manage callbacks */
-            //TODO: add your callbacks
-
             if (callbackData.startsWith(Callback.FOO)) {
 
                 onCallbackFoo(update);
@@ -112,9 +105,8 @@ public class YourBot extends TelegramLongPollingBot {
 
     }
 
-    /* ---------------------------------------------------- */
 
-    /** commmand handlers **/
+    /* command handlers */
 
     private void onCommandStart(Update update) {
 
@@ -123,77 +115,24 @@ public class YourBot extends TelegramLongPollingBot {
 
         LOGGER.log("incoming_update", sender.getId().toString(), "message", "onCommandStart");
 
-        /* this is the bot response */
         SendMessage replyMessage = new SendMessage()
                 .setChatId(incomingMessage.getChatId());
 
+        //TODO: do stuff
+
         try {
-
-            //TODO: do stuff
-
             execute(replyMessage);
-
         } catch (TelegramApiException e) {
-
             e.printStackTrace();
-
         }
 
     }
 
     private void onCommandHelp(Update update) {
-
-        Message incomingMessage = update.getMessage();
-        User sender = incomingMessage.getFrom();
-
-        LOGGER.log("incoming_update", sender.getId().toString(), "message", "onCommandHelp");
-
-        /* this is the bot response */
-        SendMessage replyMessage = new SendMessage()
-                .setChatId(incomingMessage.getChatId());
-
-        try {
-
-            //TODO: do stuff
-
-            execute(replyMessage);
-
-        } catch (TelegramApiException e) {
-
-            e.printStackTrace();
-
-        }
-
+        //TODO: do stuff
     }
 
-    private void onCommandSettings(Update update) {
-
-        Message incomingMessage = update.getMessage();
-        User sender = incomingMessage.getFrom();
-
-        LOGGER.log("incoming_update", sender.getId().toString(), "message", "onCommandSettings");
-
-        /* this is the bot response */
-        SendMessage replyMessage = new SendMessage()
-                .setChatId(incomingMessage.getChatId());
-
-        try {
-
-            //TODO: do stuff
-
-            execute(replyMessage);
-
-        } catch (TelegramApiException e) {
-
-            e.printStackTrace();
-
-        }
-
-    }
-
-    //TODO: add your command handlers
-
-    /** callback handlers **/
+    /* callback handlers */
 
     private void onCallbackFoo(Update update) {
 
@@ -208,77 +147,34 @@ public class YourBot extends TelegramLongPollingBot {
                 .setChatId(String.valueOf(sender.getId()))
                 .setMessageId(originalMessage.getMessageId());
 
-        /* this is the bot response */
         SendMessage replyMessage = new SendMessage()
                 .setChatId(originalMessage.getChatId());
 
+        //TODO: do stuff
+
         try {
-
-            //TODO: do stuff
-
             execute(editMessageReplyMarkup);
             execute(replyMessage);
-
         } catch (TelegramApiException e) {
-
             e.printStackTrace();
-
         }
 
     }
 
-    //TODO: add your callback handlers
-
-    /** data insert response **/
+    /* response to plain text */
 
     private void onInsertData(Update update) {
-
-        Message originalMessage = update.getCallbackQuery().getMessage();
-        User sender = update.getCallbackQuery().getFrom();
-
-        LOGGER.log("incoming_update", sender.getId().toString(), "message", "onInsertData");
-
-        /* this is the bot response */
-        SendMessage replyMessage = new SendMessage()
-                .setChatId(originalMessage.getChatId());
-
-        try {
-
-            //TODO: do stuff
-
-            execute(replyMessage);
-
-        } catch (TelegramApiException e) {
-
-            e.printStackTrace();
-
-        }
-
+        //TODO: do stuff
     }
 
     private void onInsertOtherData(Update update) {
+        //TODO: do stuff
+    }
 
-        Message originalMessage = update.getCallbackQuery().getMessage();
-        User sender = update.getCallbackQuery().getFrom();
+    /* operations to be executed not in response to an update */
 
-        LOGGER.log("incoming_update", sender.getId().toString(), "message", "onInsertOtherData");
-
-        /* this is the bot response */
-        SendMessage replyMessage = new SendMessage()
-                .setChatId(originalMessage.getChatId());
-
-        try {
-
-            //TODO: do stuff
-
-            execute(replyMessage);
-
-        } catch (TelegramApiException e) {
-
-            e.printStackTrace();
-
-        }
-
+    public void scheduledOperation() {
+        //TODO: do stuff, for example send a notification at a certain hour of the day
     }
 
 }

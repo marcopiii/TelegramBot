@@ -13,7 +13,7 @@ public class Logger {
     }
 
     public void log(String pattern, String... args) {
-        System.out.println("[" + LocalDateTime.now().toString() + "] " + MessageFormat.format(pattern, args));
+        System.out.println("[" + LocalDateTime.now().toString() + "] " + MessageFormat.format(logBundle.getString(pattern), args));
     }
 
 }
