@@ -2,7 +2,7 @@ package bot;
 
 import commons.Callback;
 import commons.Command;
-import commons.State;
+import utils.stateTracker.State;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageReplyMarkup;
@@ -11,13 +11,12 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import services.persistence.PersistenceService;
-import utils.L10nHelper;
-import utils.Logger;
-import utils.StateTracker;
+import utils.l10n.L10nHelper;
+import utils.logger.Logger;
+import utils.stateTracker.StateTracker;
 
 import java.util.ResourceBundle;
 
-//TODO: edit the bot name
 public class YourBot extends TelegramLongPollingBot {
 
     /* resource bundles to retrieve configurations and authentications for
@@ -173,8 +172,9 @@ public class YourBot extends TelegramLongPollingBot {
 
     /* operations to be executed not in response to an update */
 
-    public void scheduledOperation() {
-        //TODO: do stuff, for example send a notification at a certain hour of the day
+    public void sendNotification() {
+        //TODO: do stuff
+        // for example send a notification to some user
     }
 
 }

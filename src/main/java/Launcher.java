@@ -1,11 +1,10 @@
 import bot.YourBot;
-import cron.TriggerScheduledOperation;
+import cron.SendNotification;
+import org.quartz.*;
+import org.quartz.impl.StdSchedulerFactory;
 import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import org.telegram.telegrambots.meta.generics.LongPollingBot;
-
-import java.util.Timer;
 
 public class Launcher {
 
@@ -27,11 +26,32 @@ public class Launcher {
             e.printStackTrace();
         }
 
-        /* Instantiate tasks not related to updates */
-        TriggerScheduledOperation task = new TriggerScheduledOperation(bot);
+        /* Schedule tasks not related to updates via Quartz */
+        try {
 
-        /* Schedule the tasks to run periodically */
-        new Timer().scheduleAtFixedRate(task, 0, 3600000);
+            /* Instantiate the job that will call the bot function */
+            JobDetail jobSendNotification = JobBuilder.newJob(SendNotification.class)
+                    .withIdentity("sendNotification")
+                    .build();
+
+            /* Define a trigger for the call */
+            Trigger trigger = TriggerBuilder
+                    .newTrigger()
+                    .withIdentity("everyMorningAt8")
+                    .withSchedule(
+                            CronScheduleBuilder.dailyAtHourAndMinute(8, 0)) //TODO: define your schedule
+                    .build();
+
+            /* Create a scheduler to manage triggers */
+            Scheduler scheduler = new StdSchedulerFactory().getScheduler();
+            scheduler.getContext().put("bot", bot);
+            scheduler.start();
+            scheduler.scheduleJob(jobSendNotification, trigger);
+
+        } catch (SchedulerException e) {
+            e.printStackTrace();
+        }
+
 
     }
 

@@ -1,4 +1,4 @@
-package utils;
+package utils.logger;
 
 import java.text.MessageFormat;
 import java.time.LocalDateTime;

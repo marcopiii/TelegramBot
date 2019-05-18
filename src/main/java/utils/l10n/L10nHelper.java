@@ -1,4 +1,4 @@
-package utils;
+package utils.l10n;
 
 import java.util.*;
 
