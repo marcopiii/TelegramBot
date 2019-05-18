@@ -57,7 +57,7 @@ You can also define operations not related to incoming updates, to be called by 
 You may want your bot to be able to have a conversation with the user, something like
 
 <p align="center">
-    <img src="https://i.ibb.co/mHcdkWT/Schermata-2019-05-18-alle-15-29-46.png" alt="example" width="600"/>
+    <img src="https://i.ibb.co/tZCnfyD/Schermata-2019-05-18-alle-15-44-47.png" alt="example" width="500"/>
 </p>
 
 but since every message is received by your bot as an independent update, how can it recognize if the next plain text message has to be interpreted as a note title or a note body? An easy solution to bind those independent updates is to *move* the user through a series of states.
