@@ -56,7 +56,9 @@ You can also define operations not related to incoming updates, to be called by 
 #### StateTracker
 You may want your bot to be able to have a conversation with the user, something like
 
-<div style="text-align:center"><img src="https://i.ibb.co/mHcdkWT/Schermata-2019-05-18-alle-15-29-46.png" alt="example" width="600"/></div>
+<p align="center">
+    <img src="https://i.ibb.co/mHcdkWT/Schermata-2019-05-18-alle-15-29-46.png" alt="example" width="600"/>
+</p>
 
 but since every message is received by your bot as an independent update, how can it recognize if the next plain text message has to be interpreted as a note title or a note body? An easy solution to bind those independent updates is to *move* the user through a series of states.
 After receiving the `/addNote` command the bot can associate the sender to the state `GETTING_TITLE` and the next plain text message received from that user will be interpreted as the title. Then he can be moved to the next step, for example `GETTING_TEXT`, and so on.
