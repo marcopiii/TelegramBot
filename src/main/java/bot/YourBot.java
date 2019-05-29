@@ -173,8 +173,7 @@ public class YourBot extends TelegramLongPollingBot {
     /* operations to be executed not in response to an update */
 
     public void sendNotification() {
-        //TODO: do stuff
-        // for example send a notification to some user
+        //TODO: do stuff for example send a notification to some user
     }
 
 }
